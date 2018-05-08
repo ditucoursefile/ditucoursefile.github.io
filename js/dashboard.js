@@ -30,7 +30,6 @@ var config = {
   {
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
-      alert("logged out!")
       window.location = './admin.html'; //After successful login, user will be redirected to home.html
     
     }).catch(function(error) {
