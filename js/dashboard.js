@@ -77,7 +77,8 @@ var config = {
       t.row.add( [
         sapId,
         name ,
-        "<a href=\""+fileUrl+"\" target=\"_blank\">Download</a>"
+        // "<a href=\""+fileUrl+"\" target=\"_blank\">Download</a>"
+        "hi"
 
     ] ).draw( false );
 
