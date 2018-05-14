@@ -180,7 +180,7 @@
     const file = $('#fileButton').get(0).files[0];
     $('#submitBtn').text('Submitting..');
     //Create a storage reference
-    var storageRef = firebase.storage().ref('files/'+file.name);
+    var storageRef = firebase.storage().ref('files/'+sapid+'/'+file.name);
     //Upload file
     var task = storageRef.put(file);
 
