@@ -12,6 +12,7 @@ var config = {
     messagingSenderId: "44081002430"
   };
   firebase.initializeApp(config);
+  var storageRef = firebase.storage();
 
 
   firebase.auth().onAuthStateChanged(function(user) {
@@ -41,15 +42,18 @@ var config = {
 
     rootRef.on("child_added", snap => {
 
+      console.log("Entered rootRef");
       var sapId = snap.child("sapid").val();
       var name = snap.child("username").val();
       // var fileUrl = snap.child("fileStatus").val();
       var fileUrl = "";
       //Create a storage reference
-      var storageRef = firebase.storage().ref('files/'+sapid+'.pdf');
+      storageRef.ref('files/'+sapid+'.pdf');
       storageRef.getDownloadURL().then(function(url) {
         // Insert url into an <img> tag to "download"
         fileUrl = fileUrl+url;
+        console.log("FileURL"+fileUrl);
+        console.log("URL"+url);
         
       }).catch(function(error) {
       
