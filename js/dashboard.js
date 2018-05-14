@@ -48,7 +48,7 @@ var config = {
       // var fileUrl = snap.child("fileStatus").val();
       var fileUrl = "";
       //Create a storage reference
-      storageRef.ref('files/'+sapid+'.pdf');
+      storageRef.ref('files/'+sapId+'.pdf');
       storageRef.getDownloadURL().then(function(url) {
         // Insert url into an <img> tag to "download"
         fileUrl = fileUrl+url;
