@@ -43,13 +43,42 @@ var config = {
 
       var sapId = snap.child("sapid").val();
       var name = snap.child("username").val();
-      var fileUrl = snap.child("fileStatus").val();
+      // var fileUrl = snap.child("fileStatus").val();
+      //Create a storage reference
+      var storageRef = firebase.storage().ref('files/'+sapid+'.pdf');
+      storageRef.getDownloadURL().then(function(url) {
+        // Insert url into an <img> tag to "download"
+        var fileUrl = url;
+        
+      }).catch(function(error) {
+      
+        switch (error.code) {
+          case 'storage/object_not_found':
+            alert('File does not exist!');
+            break;
+      
+          case 'storage/unauthorized':
+            alert('Sorry, You do not have access to view the file!');
+            break;
+      
+          case 'storage/canceled':
+            // User canceled the upload
+            alert('User has canceled the upload!');
+            break;
 
+          case 'storage/unknown':
+            // Unknown error occurred, inspect the server response
+            alert('Unknown Error! Please contact maintainence ...');
+            break;
+        }
+      });
+      
       var t = $('#example1').DataTable();
       t.row.add( [
         sapId,
         name ,
         "<a href=\""+fileUrl+"\" target=\"_blank\">Download</a>"
+
     ] ).draw( false );
 
     });

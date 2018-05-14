@@ -183,9 +183,10 @@
     console.log("happening");
     //var file = e.target.files[0];
     const file = $('#fileButton').get(0).files[0];
+    var getExtension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
     $('#submitBtn').text('Submitting..');
     //Create a storage reference
-    var storageRef = firebase.storage().ref('files/'+sapid+'/'+file.name);
+    var storageRef = firebase.storage().ref('files/'+sapid+'.'+getExtension);
     //Upload file
     var task = storageRef.put(file);
 
@@ -199,10 +200,10 @@
         console.log('Some Error Occured');
       },
       function complete(){
-        task.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-          writeUserData(sapid, name, downloadURL);
+        // task.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+          writeUserData(sapid, name, 'Uploaded');
           $('#submitBtn').text("Submitted Successfully!");
-        });
+        // });
       }
 
   );
