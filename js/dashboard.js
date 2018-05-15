@@ -42,6 +42,8 @@ rootRef.on("child_added", snap => {
   console.log("Entered rootRef");
   var sapId = snap.child("sapid").val();
   var name = snap.child("username").val();
+  var courseName = snap.child("coursename").val();
+  var courseId = snap.child("courseid").val();
   // var fileUrl = snap.child("fileStatus").val();
   //Create a storage reference
   var storageRef = firebase.storage().ref('files/' + sapId + '.pdf');
@@ -51,6 +53,8 @@ rootRef.on("child_added", snap => {
     t.row.add([
       sapId,
       name,
+      courseName,
+      courseId,
       "<a href=\""+url+"\" target=\"_blank\">Download</a>"
 
     ]).draw(false);

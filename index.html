@@ -52,19 +52,20 @@
     var database = firebase.database();
 
 
-    function writeUserData(sapId, name, status) {
+    function writeUserData(sapId, name, status, courseName, courseId) {
       firebase.database().ref('users/' + sapId).set({
         username: name,
         fileStatus: status,
-        sapid:sapId
+        sapid: sapId,
+        courseid: courseId,
+        coursename: courseName
       });
 
       //Redirect Here
       setTimeout(
-  function() 
-  {
-    location.reload();
-  }, 2000);
+        function () {
+          location.reload();
+        }, 1000);
     }
   </script>
 
@@ -114,19 +115,27 @@
             <form role="form" onsubmit="prepData()" id="form1">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">SAP ID</label>
+                  <label for="sapId">SAP ID</label>
                   <input class="form-control" id="sapId" type="text" placeholder="Enter your SAPID">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Name</label>
+                  <label for="name">Name</label>
                   <input class="form-control" id="name" type="text" placeholder="Enter your name ">
+                </div>
+                <div class="form-group">
+                  <label for="courseName">Course Name</label>
+                  <input class="form-control" id="courseName" type="text" placeholder="Enter the Course name ">
+                </div>
+                <div class="form-group">
+                  <label for="courseId">Course ID</label>
+                  <input class="form-control" id="courseId" type="text" placeholder="Enter the Course ID ">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputFile">Select your completed form</label>
 
                   <input id="fileButton" type="file">
 
-                  <p class="help-block" id="progress">Please prefer PDF File while uploading.</p>
+                  <p class="help-block" id="progress">Please upload PDF files only!</p>
                 </div>
                 <div class="checkbox">
                   <label>
@@ -138,7 +147,7 @@
 
               <div class="box-footer">
                 <center>
-                    <button class="btn btn-primary" type="submit" id="submitBtn">Submit</button>
+                  <button class="btn btn-primary" type="submit" id="submitBtn">Submit</button>
                 </center>
               </div>
             </form>
@@ -152,7 +161,8 @@
     <footer class="main-footer">
       <div class="container">
         <div class="pull-right hidden-xs">
-          Made with <b> &#10084;</b> by DITians
+          Made with
+          <b> &#10084;</b> by DITians
         </div>
         <strong>Copyright &copy; 2018
           <a href="https://www.dituniversity.edu.in">DIT Univeristy</a>.</strong> All rights reserved.
@@ -178,38 +188,38 @@
     function prepData() {
       var sapid = document.getElementById("sapId").value;
       var name = document.getElementById("name").value;
+      var coursename = document.getElementById("courseName").value;
+      var courseid = document.getElementById("courseId").value;
       //Writing to database
-          //Get File
-    console.log("happening");
-    //var file = e.target.files[0];
-    const file = $('#fileButton').get(0).files[0];
-    var getExtension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
-    $('#submitBtn').text('Submitting..');
-    //Create a storage reference
-    var storageRef = firebase.storage().ref('files/'+sapid+'.'+getExtension);
-    //Upload file
-    var task = storageRef.put(file);
+      //Get File
+      const file = $('#fileButton').get(0).files[0];
+      var getExtension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
+      $('#submitBtn').text('Submitting..');
+      //Create a storage reference
+      var storageRef = firebase.storage().ref('files/' + sapid + '.' + getExtension);
+      //Upload file
+      var task = storageRef.put(file);
 
-    //Progress 
-    task.on('state_changed',
-      function progress(snapshot){
-        var percentage = (snapshot.bytesTransferred / snapshot.totalBytes)*100;
-        document.getElementById("progress").innerHTML = Math.round(percentage) + " % uploaded";
-      },
-      function error(){
-        console.log('Some Error Occured');
-      },
-      function complete(){
-          writeUserData(sapid, name, 'Uploaded');
+      //Progress 
+      task.on('state_changed',
+        function progress(snapshot) {
+          var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          document.getElementById("progress").innerHTML = Math.round(percentage) + " % uploaded";
+        },
+        function error() {
+          console.log('Some Error Occured');
+        },
+        function complete() {
+          writeUserData(sapid, name, 'Uploaded', coursename, courseid);
           $('#submitBtn').text("Submitted Successfully!");
-      }
+        }
 
-  );
+      );
     }
-  $('#form1').on('submit',function(e){
-    e.preventDefault();
-    console.log('Submitting');
-  });
+    $('#form1').on('submit', function (e) {
+      e.preventDefault();
+      console.log('Submitting');
+    });
   </script>
 </body>
 
