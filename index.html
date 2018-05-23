@@ -209,7 +209,6 @@
       var storageRef2 = firebase.storage().ref('files/' + sapid + '_2.' + getExtension2);
       //Upload file
       var task = storageRef.put(file);
-      var task2 = storageRef2.put(file2);
 
       //Progress 
       task.on('state_changed',
@@ -222,20 +221,21 @@
         },
         function complete() {
           document.getElementById("progress").innerHTML = " Course File Uploaded Successfully!";
-        }
+          var task2 = storageRef2.put(file2);
+          task2.on('state_changed',
+            function progress(snapshot) {
+              var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              document.getElementById("progress2").innerHTML = Math.round(percentage) + " % uploaded";
+            },
+            function error() {
+              console.log('Some Error Occured while uploading attendance register');
+            },
+            function complete() {
+              writeUserData(sapid, name, 'Uploaded', coursename, courseid);
+              $('#submitBtn').text("Submitted Successfully!");
+            }
 
-      );
-      task2.on('state_changed',
-        function progress(snapshot) {
-          var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          document.getElementById("progress2").innerHTML = Math.round(percentage) + " % uploaded";
-        },
-        function error() {
-          console.log('Some Error Occured while uploading attendance register');
-        },
-        function complete() {
-          writeUserData(sapid, name, 'Uploaded', coursename, courseid);
-          $('#submitBtn').text("Submitted Successfully!");
+          );
         }
 
       );
