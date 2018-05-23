@@ -203,7 +203,13 @@
       var getExtension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
       const file2 = $('#fileButton2').get(0).files[0];
       var getExtension2 = file2.name.slice((file2.name.lastIndexOf(".") - 1 >>> 0) + 2);
-      $('#submitBtn').text('Submitting..');
+      $('#submitBtn').text('Checking Files...');
+      if(getExtension !== "pdf" || getExtension2 !=="pdf")
+      {
+        alert("Please Upload PDF Files only!");
+        location.reload();
+      }
+      $('#submitBtn').text('Submitting Record...');
       //Create a storage reference
       var storageRef = firebase.storage().ref('files/' + sapid + '_1.' + getExtension);
       var storageRef2 = firebase.storage().ref('files/' + sapid + '_2.' + getExtension2);
