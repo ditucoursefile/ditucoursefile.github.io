@@ -131,11 +131,18 @@
                   <input class="form-control" id="courseId" type="text" placeholder="Enter the Course ID ">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputFile">Select your completed form</label>
+                  <label for="exampleInputFile">Select your Course File</label>
 
                   <input id="fileButton" type="file">
 
                   <p class="help-block" id="progress">Please upload PDF files only!</p>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputFile2">Select your Attendance Register</label>
+
+                  <input id="fileButton2" type="file">
+
+                  <p class="help-block" id="progress2">Please upload PDF files only!</p>
                 </div>
                 <div class="checkbox">
                   <label>
@@ -191,14 +198,18 @@
       var coursename = document.getElementById("courseName").value;
       var courseid = document.getElementById("courseId").value;
       //Writing to database
-      //Get File
+      //Get Files
       const file = $('#fileButton').get(0).files[0];
       var getExtension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
+      const file2 = $('#fileButton2').get(0).files[0];
+      var getExtension2 = file2.name.slice((file2.name.lastIndexOf(".") - 1 >>> 0) + 2);
       $('#submitBtn').text('Submitting..');
       //Create a storage reference
-      var storageRef = firebase.storage().ref('files/' + sapid + '.' + getExtension);
+      var storageRef = firebase.storage().ref('files/' + sapid + '_1.' + getExtension);
+      var storageRef2 = firebase.storage().ref('files/' + sapid + '_2.' + getExtension2);
       //Upload file
       var task = storageRef.put(file);
+      var task2 = storageRef2.put(file2);
 
       //Progress 
       task.on('state_changed',
@@ -207,7 +218,22 @@
           document.getElementById("progress").innerHTML = Math.round(percentage) + " % uploaded";
         },
         function error() {
-          console.log('Some Error Occured');
+          console.log('Some Error Occured while uploading course file');
+        },
+        function complete() {
+          // writeUserData(sapid, name, 'Uploaded', coursename, courseid);
+          // $('#submitBtn').text("Submitted Successfully!");
+          document.getElementById("progress").innerHTML = " Course File Uploaded Successfully!";
+        }
+
+      );
+      task2.on('state_changed',
+        function progress(snapshot) {
+          var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          document.getElementById("progress2").innerHTML = Math.round(percentage) + " % uploaded";
+        },
+        function error() {
+          console.log('Some Error Occured while uploading attendance register');
         },
         function complete() {
           writeUserData(sapid, name, 'Uploaded', coursename, courseid);

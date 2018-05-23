@@ -33,7 +33,7 @@ function logout() {
     window.location = './admin.html'; //After successful login, user will be redirected to home.html
 
   }).catch(function (error) {
-    //[TODO: HANDEL EXCEPTION]
+    alert("Some Problem while logging out!");
   });
 }
 
@@ -46,43 +46,46 @@ rootRef.on("child_added", snap => {
   var courseId = snap.child("courseid").val();
   // var fileUrl = snap.child("fileStatus").val();
   //Create a storage reference
-  var storageRef = firebase.storage().ref('files/' + sapId + '.pdf');
+  var storageRef = firebase.storage().ref('files/' + sapId + '_1.pdf'); //Course File
+  var storageRef2 = firebase.storage().ref('files/' + sapId + '_2.pdf'); //Attendance Register
   storageRef.getDownloadURL().then(function (url) {
-    // Insert url into an <img> tag to "download"
+    //Fetching Attendance Register Data
+    storageRef2.getDownloadURL().then(function (xurl){
+      // Insert url into an <img> tag to "download"
     var t = $('#example1').DataTable();
     t.row.add([
       sapId,
       name,
       courseName,
       courseId,
-      "<a href=\""+url+"\" target=\"_blank\">Download</a>"
+      "<a href=\""+url+"\" target=\"_blank\">Course File</a>, <a href=\""+xurl+"\" target=\"_blank\">Attendance Register</a> "
 
     ]).draw(false);
+    })
 
 
   }).catch(function (error) {
 
     switch (error.code) {
       case 'storage/object_not_found':
-        alert('File does not exist!');
+        console.log('File does not exist!');
         break;
 
       case 'storage/unauthorized':
-        alert('Sorry, You do not have access to view the file!');
+      console.log('Sorry, You do not have access to view the file!');
         break;
 
       case 'storage/canceled':
         // User canceled the upload
-        alert('User has canceled the upload!');
+        console.log('User has canceled the upload!');
         break;
 
       case 'storage/unknown':
         // Unknown error occurred, inspect the server response
-        alert('Unknown Error! Please contact maintainence ...');
+        console.log('Unknown Error! Please contact maintainence ...');
         break;
     }
   });
-  // console.log(fileUrl);
 
 });
 
