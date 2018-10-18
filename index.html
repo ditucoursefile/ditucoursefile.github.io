@@ -52,13 +52,14 @@
     var database = firebase.database();
 
 
-    function writeUserData(sapId, name, status, courseName, courseId) {
+    function writeUserData(sapId, name, status, courseName, courseId, date) {
       firebase.database().ref('users/' + sapId).set({
         username: name,
         fileStatus: status,
         sapid: sapId,
         courseid: courseId,
-        coursename: courseName
+        coursename: courseName,
+        submissiondate: date
       });
 
       //Redirect Here
@@ -196,6 +197,7 @@
       var name = document.getElementById("name").value;
       var coursename = document.getElementById("courseName").value;
       var courseid = document.getElementById("courseId").value;
+      var date = new Date().toString();
       //Writing to database
       //Get Files
       const file = $('#fileButton').get(0).files[0];
@@ -236,7 +238,7 @@
               console.log('Some Error Occured while uploading attendance register');
             },
             function complete() {
-              writeUserData(sapid, name, 'Uploaded', coursename, courseid);
+              writeUserData(sapid, name, 'Uploaded', coursename, courseid, date);
               $('#submitBtn').text("Submitted Successfully!");
             }
 
