@@ -59,7 +59,7 @@ rootRef.on("child_added", snap => {
       name,
       courseName,
       courseId,
-      date,
+      submissiondate,
       "<a href=\""+url+"\" target=\"_blank\">Course File</a>, <a href=\""+xurl+"\" target=\"_blank\">Attendance Register</a> "
 
     ]).draw(false);
