@@ -47,8 +47,8 @@ rootRef.on("child_added", snap => {
   var date = snap.child("submissiondate").val();
   // var fileUrl = snap.child("fileStatus").val();
   //Create a storage reference
-  var storageRef = firebase.storage().ref('files/' + sapId + '_1.pdf'); //Course File
-  var storageRef2 = firebase.storage().ref('files/' + sapId + '_2.pdf'); //Attendance Register
+  var storageRef = firebase.storage().ref('files/' + sapId + '_'+ courseId +'_1.pdf'); //Course File
+  var storageRef2 = firebase.storage().ref('files/' + sapId +'_'+ courseId + '_2.pdf'); //Attendance Register
   storageRef.getDownloadURL().then(function (url) {
     //Fetching Attendance Register Data
     storageRef2.getDownloadURL().then(function (xurl){

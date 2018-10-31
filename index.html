@@ -53,7 +53,7 @@
 
 
     function writeUserData(sapId, name, status, courseName, courseId, date) {
-      firebase.database().ref('users/' + sapId).set({
+      firebase.database().ref('users/' + sapId+ '_'+courseId).set({
         username: name,
         fileStatus: status,
         sapid: sapId,
@@ -212,8 +212,8 @@
       }
       $('#submitBtn').text('Submitting Record...');
       //Create a storage reference
-      var storageRef = firebase.storage().ref('files/' + sapid + '_1.' + getExtension);
-      var storageRef2 = firebase.storage().ref('files/' + sapid + '_2.' + getExtension2);
+      var storageRef = firebase.storage().ref('files/' + sapid + '_' + courseid + '_1.' + getExtension);
+      var storageRef2 = firebase.storage().ref('files/' + sapid + '_'+ courseid +'_2.' + getExtension2);
       //Upload file
       var task = storageRef.put(file);
 
