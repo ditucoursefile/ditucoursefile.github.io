@@ -72,7 +72,7 @@
 
   <div class="wrapper">
 
-<!--     <header class="main-header">
+<header class="main-header">
       <nav class="navbar navbar-static-top">
         <div class="container">
           <div class="navbar-header">
@@ -83,36 +83,35 @@
               <i class="fa fa-bars"></i>
             </button>
           </div>
-        </div> -->
+        </div> 
         <!-- /.container-fluid -->
-<!--       </nav>
-    </header> -->
+      </nav>
+    </header>
     <!-- Full Width Column -->
-<!--     <div class="content-wrapper" style="padding-top:40px;">
-      <div class="container"> -->
+<div class="content-wrapper" style="padding-top:40px;">
+      <div class="container">
         <!-- Content Header (Page header) -->
-<!--         <section class="content-header">
+        <section class="content-header">
           <h1>
-            Course File -->
+            Course File
             <!-- <small>for ABC purposes</small> -->
-<!--           </h1>
+         </h1>
         </section>
- -->
         <!-- Main content -->
-<!--         <section class="content"> -->
-          <!-- <div class="callout callout-danger">
+       <section class="content">
+          <div class="callout callout-danger">
           <h4>Warning!</h4>
 
           <p> Prevention is better than cure ;-)
           </p>
-        </div> -->
-<!--           <div class="box box-primary">
+        </div>
+        <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Please fill the form below</h3>
-            </div> -->
+            </div> 
             <!-- /.box-header -->
             <!-- form start -->
-<!--             <form role="form" onsubmit="prepData()" id="form1">
+             <form role="form" onsubmit="prepData()" id="form1">
               <div class="box-body">
                 <div class="form-group">
                   <label for="sapId">SAP ID</label>
@@ -149,9 +148,8 @@
                     <input type="checkbox"> I approve the information provided ...
                   </label>
                 </div>
-              </div> -->
-              <!-- /.box-body -->
-<!-- 
+              </div> 
+              <!-- /.box-body --> 
               <div class="box-footer">
                 <center>
                   <button class="btn btn-primary" type="submit" id="submitBtn">Submit</button>
@@ -159,13 +157,13 @@
               </div>
             </form>
           </div>
-        </section> -->
+        </section> 
         <!-- /.content -->
-<!--       </div> -->
+      </div> 
       <!-- /.container -->
-<!--     </div> -->
+     </div> 
     <!-- /.content-wrapper -->
-<!--     <footer class="main-footer">
+    <footer class="main-footer">
       <div class="container">
         <div class="pull-right hidden-xs">
           Made with
@@ -173,24 +171,24 @@
         </div>
         <strong>Copyright &copy; 2018
           <a href="https://www.dituniversity.edu.in">DIT Univeristy</a>.</strong> All rights reserved.
-      </div> -->
+      </div>
       <!-- /.container -->
-<!--     </footer>
-  </div> -->
+   </footer>
+  </div> 
   <!-- ./wrapper -->
 
  <!-- jQuery 3 -->
-<!--   <script src="bower_components/jquery/dist/jquery.min.js"></script> -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
-<!--   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- SlimScroll -->
-<!--   <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script> -->
+  <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
   <!-- FastClick -->
-<!--   <script src="bower_components/fastclick/lib/fastclick.js"></script> -->
+  <script src="bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
-<!--   <script src="dist/js/adminlte.min.js"></script> -->
+  <script src="dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
-<!--   <script src="dist/js/demo.js"></script>
+  <script src="dist/js/demo.js"></script>
   <script>
     function prepData() {
       var sapid = document.getElementById("sapId").value;
@@ -210,14 +208,14 @@
         alert("Please Upload PDF Files only!");
         location.reload();
       }
-      $('#submitBtn').text('Submitting Record...'); -->
-<!--       //Create a storage reference
+      $('#submitBtn').text('Submitting Record...');
+      //Create a storage reference
       var storageRef = firebase.storage().ref('files/' + sapid + '_' + courseid + '_1.' + getExtension);
       var storageRef2 = firebase.storage().ref('files/' + sapid + '_'+ courseid +'_2.' + getExtension2);
       //Upload file
-      var task = storageRef.put(file); -->
+      var task = storageRef.put(file);
 
-<!--       //Progress 
+      //Progress 
       task.on('state_changed',
         function progress(snapshot) {
           var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -251,9 +249,7 @@
       e.preventDefault();
       console.log('Submitting');
     });
-  </script> -->
-    
-    <h1 style="color: white; padding: 10px;">Submission Closed! </h1>
+  </script>
 </body>
 
 </html>
