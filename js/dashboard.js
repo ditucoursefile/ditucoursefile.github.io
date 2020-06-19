@@ -60,7 +60,7 @@ rootRef.on("child_added", snap => {
       name,
       courseName,
       courseId,
-      `<span style='display: none;'>${millisecond}</span> date`,
+      `<span style='display: none;'>${milliseconds}</span> date`,
       "<a href=\""+url+"\" target=\"_blank\">Course File</a>, <a href=\""+xurl+"\" target=\"_blank\">Attendance Register</a> "
 
     ]).draw(false);
